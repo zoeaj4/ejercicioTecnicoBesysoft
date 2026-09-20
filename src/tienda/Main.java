@@ -48,7 +48,7 @@ public class Main {
                     listarVentas();
                     break;
                 case 7:
-                    System.out.println("opcion 7 elegida"); // falta implementar
+                    buscarProductos();
                     break;
                 case 8:
                     System.out.println("opcion 8 elegida"); // falta implementar
@@ -124,8 +124,6 @@ public class Main {
 		
 	}
 
-	
-
 	private static void registrarProducto() {
 		System.out.println("Código: ");
 		int codigo = Integer.parseInt(scanner.nextLine());
@@ -152,6 +150,76 @@ public class Main {
 	    for (int i = 0; i < ventas.size(); i++) {
 	        System.out.println(ventas.get(i));
 	    }
+	}
+	
+	public static void buscarProductos() {
+		ArrayList<Producto> resultado = new ArrayList<Producto>();
+		
+		int opcion = -1;
+        while (opcion != 0) {
+
+            System.out.println("===== MENU BUSQUEDA =====");
+            System.out.println("1. Buscar por Categoria");
+            System.out.println("2. Buscar por Nombre");
+            System.out.println("3. Buscar por codigo");
+            System.out.println("4. Buscar entre precios");
+            System.out.println("0. Salir");
+
+            System.out.print("Elegi una opcion: ");
+            String texto = scanner.nextLine();
+            opcion = Integer.parseInt(texto);
+
+            switch (opcion) {
+                case 1:
+                {
+                	System.out.println("Categoria: ");
+                	String categoria = scanner.nextLine();
+                	resultado = tienda.buscarPorCategoria(categoria);
+                }
+                    break;
+                case 2:
+                {
+                	System.out.println("Nombre: ");
+                	String nombre = scanner.nextLine();
+                	resultado = tienda.buscarPorNombre(nombre);
+                }
+                    break;
+                case 3:
+                {
+                	System.out.println("Codigo: ");
+                	int codigo = Integer.parseInt(scanner.nextLine());
+                	resultado = tienda.buscarPorCodigo(codigo);
+                }
+                    break;
+                case 4:
+                {
+                    	System.out.println("Precio minimo: ");
+                    	Double precioMinimo = Double.parseDouble(scanner.nextLine());
+                    	System.out.println("Precio maximo: ");
+                    	Double precioMaximo = Double.parseDouble(scanner.nextLine());
+                    	resultado = tienda.buscarPorRangoPrecios(precioMinimo, precioMaximo);    	
+                }
+                    break;
+                case 0:
+                    System.out.println("Saliendo...");
+                    continue;
+                default:
+                    System.out.println("Esa opcion no existe, proba de nuevo.");
+            }
+            
+            if (resultado.size() == 0) {
+                System.out.println("No se encontraron productos.");
+            } else {
+                for (int i = 0; i < resultado.size(); i++) {
+                    System.out.println(resultado.get(i));
+                }
+            }
+
+            System.out.println(); // una linea en blanco para separar cada vuelta del menu
+        }
+        
+	
+		
 	}
 	
 }

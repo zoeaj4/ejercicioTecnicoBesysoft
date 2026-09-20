@@ -57,4 +57,55 @@ public class Tienda {
 	    return ventas;
 	}
 	
+	//buscadores
+	
+	public ArrayList<Producto> buscarPorCategoria(String categoria){
+		ArrayList<Producto> resultado = new ArrayList<Producto>();
+		
+		for (int i = 0; i<productos.size(); i++) {
+			if (productos.get(i).getCategoria().toLowerCase().equals(categoria.toLowerCase())) {
+				resultado.add(productos.get(i));
+			}
+			
+		}
+		return resultado;
+	}
+	public ArrayList<Producto> buscarPorNombre(String nombre){
+		ArrayList<Producto> resultado = new ArrayList<Producto>();
+		
+		for (int i = 0; i<productos.size(); i++) {
+			if (productos.get(i).getNombre().toLowerCase().contains(nombre.toLowerCase())) {
+				resultado.add(productos.get(i));
+			}
+			
+		}
+		return resultado;
+	}
+	
+	public ArrayList<Producto> buscarPorRangoPrecios(Double precioMinimo, Double precioMaximo){
+		
+		ArrayList<Producto> resultado = new ArrayList<Producto>();
+		
+		for (int i = 0; i<productos.size(); i++) {
+			if (productos.get(i).getPrecio()>=precioMinimo && productos.get(i).getPrecio()<= precioMaximo) {
+				resultado.add(productos.get(i));
+			}
+			
+		}
+		return resultado;
+	}
+	
+	public ArrayList<Producto> buscarPorCodigo(int codigo){
+		ArrayList<Producto> resultado = new ArrayList<Producto>();
+		
+		for (int i = 0; i<productos.size(); i++) {
+			if (productos.get(i).getCodigo()==codigo) {
+				resultado.add(productos.get(i));
+			}
+			
+		}
+		
+		return resultado;
+	}
+
 }
