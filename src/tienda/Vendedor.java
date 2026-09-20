@@ -6,15 +6,11 @@ public class Vendedor {
 	private double sueldo;
 	
 		public Vendedor(int codigo, String nombre, double sueldo) {
-			this.codigo = codigo;
-			this.nombre = nombre;
-			this.sueldo = sueldo;
+			this.setCodigo(codigo);
+			this.setNombre(nombre);
+			this.setSueldo(sueldo);
 		}
-	
-	
-	
-	
-	
+
 	// setters y getters
 	public int getCodigo() {
 		return codigo;
@@ -35,6 +31,8 @@ public class Vendedor {
 		this.sueldo = sueldo;
 	}
 
-
+	public String toString() {
+	    return "Codigo: " + codigo + " | Nombre: " + nombre + " | Sueldo: " + sueldo;
+	}
 
 }

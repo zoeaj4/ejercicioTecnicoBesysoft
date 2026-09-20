@@ -13,6 +13,11 @@ public class Producto {
 		this.setPrecio(precio);
 		this.setNombre(nombre);
 	}
+	
+	
+	public String toString() {
+	    return "Codigo: " + codigo + " | Nombre: " + nombre + " | Precio: " + precio + " | Categoria: " + categoria;
+	}
 
 	public int getCodigo() {
 		return codigo;
