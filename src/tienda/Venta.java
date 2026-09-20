@@ -41,7 +41,7 @@ public class Venta {
 	}
 	
 	public String toString() {
-	    return "Vendedor: " + vendedor + " | Producto: " + producto + " | Cantidad: " + cantidad;
+	    return "Vendedor: " + vendedor.getNombre() + " | Producto: " + producto.getNombre() + " | Cantidad: " + cantidad + " | Total: " + getTotal();
 	}
 	
 

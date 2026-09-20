@@ -107,5 +107,28 @@ public class Tienda {
 		
 		return resultado;
 	}
+	
+	// calcular comision
+	public double calcularComision(int codigoVendedor) {
+		int totalUnidades = 0;
+		double totalVendido = 0;
+		
+	 for (int i = 0; i<ventas.size(); i++) {
+			if (ventas.get(i).getVendedor().getCodigo() == codigoVendedor) {
+				totalUnidades = totalUnidades+ventas.get(i).getCantidad();
+				totalVendido = totalVendido + ventas.get(i).getTotal();
+			}
+		}
+	 
+		double comision;
+		if (totalUnidades<=2) {
+			comision = totalVendido * 0.05;
+		} else {
+			comision = totalVendido * 0.10;
+		}
+		
+		return comision;
+	}
+	
 
 }

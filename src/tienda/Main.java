@@ -51,7 +51,7 @@ public class Main {
                     buscarProductos();
                     break;
                 case 8:
-                    System.out.println("opcion 8 elegida"); // falta implementar
+                    calcularComision();
                     break;
                 case 0:
                     System.out.println("Saliendo...");
@@ -66,8 +66,14 @@ public class Main {
         scanner.close();
 	}
 	
+	private static void calcularComision() {
+		System.out.println("Codigo del vendedor: ");
+		int codigoVendedor = Integer.parseInt(scanner.nextLine());
+		System.out.println("La comision es " + tienda.calcularComision(codigoVendedor));
+		
+	}
+
 	private static void registrarVenta() {
-		// TODO Auto-generated method stub
 		System.out.println("Código del producto: ");
 		int codigoProducto = Integer.parseInt(scanner.nextLine());
 		System.out.println("Codigo del vendedor: ");
@@ -81,7 +87,6 @@ public class Main {
 	}
 
 	private static void listarVendedores() {
-		// TODO Auto-generated method stub
 		ArrayList<Vendedor> vendedores = tienda.getVendedores();
 		if (vendedores.size() == 0) {
 			System.out.println("No hay vendedores cargados.");
@@ -93,11 +98,11 @@ public class Main {
 	}
 
 	private static void listarProductos() {
-		// TODO Auto-generated method stub
 		ArrayList<Producto> productos = tienda.getProductos();
 		
 		if (productos.size() == 0) {
 			System.out.println("No hay productos enlistados.");
+			return;
 		}
 		
 		for (int i = 0; i < productos.size(); i++) {
@@ -107,9 +112,7 @@ public class Main {
 		
 	}
 
-	private static void registrarVendedor() {
-		// TODO Auto-generated method stub
-		
+	private static void registrarVendedor() {		
 		System.out.println("Codigo: ");
 		int codigo = Integer.parseInt(scanner.nextLine());		
 		System.out.println("Nombre: ");
