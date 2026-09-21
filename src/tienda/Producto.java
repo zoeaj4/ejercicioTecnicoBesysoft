@@ -1,4 +1,8 @@
 package tienda;
+/*Ver repositorio en github:
+ * https://github.com/zoeaj4/ejercicioTecnicoBesysoft
+ * 
+ * */
 
 public class Producto {
 	private int codigo;

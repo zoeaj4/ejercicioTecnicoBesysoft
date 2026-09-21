@@ -1,4 +1,8 @@
 package tienda;
+/*Ver repositorio en github:
+ * https://github.com/zoeaj4/ejercicioTecnicoBesysoft
+ * 
+ * */
 
 import java.util.ArrayList;
 import tienda.exception.ProductoNoEncontradoException;

@@ -1,4 +1,10 @@
+/*Ver repositorio en github:
+ * https://github.com/zoeaj4/ejercicioTecnicoBesysoft
+ * 
+ * */
+
 package tienda;
+
 
 import java.util.ArrayList;
 import java.util.Scanner;
