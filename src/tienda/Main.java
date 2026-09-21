@@ -2,14 +2,17 @@ package tienda;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import tienda.exception.ProductoNoEncontradoException;
+import tienda.exception.VendedorNoEncontradoException;
+import tienda.exception.DatoInvalidoException;
 
 public class Main {
-	
+
 	static Scanner scanner = new Scanner (System.in);
 	static Tienda tienda = new Tienda();
 
 	public static void main(String[] args) {
-        
+
         int opcion = -1;
         while (opcion != 0) {
 
@@ -60,17 +63,22 @@ public class Main {
                     System.out.println("Esa opcion no existe, proba de nuevo.");
             }
 
-            System.out.println(); // una linea en blanco para separar cada vuelta del menu
+            System.out.println();
         }
 
         scanner.close();
 	}
-	
+
 	private static void calcularComision() {
 		System.out.println("Codigo del vendedor: ");
 		int codigoVendedor = Integer.parseInt(scanner.nextLine());
-		System.out.println("La comision es " + tienda.calcularComision(codigoVendedor));
-		
+
+		try {
+			double comision = tienda.calcularComision(codigoVendedor);
+			System.out.println("La comision es " + comision);
+		} catch (VendedorNoEncontradoException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
 	}
 
 	private static void registrarVenta() {
@@ -80,10 +88,17 @@ public class Main {
 		int codigoVendedor = Integer.parseInt(scanner.nextLine());
 		System.out.println("Cantidad: ");
 		int cantidad = Integer.parseInt(scanner.nextLine());
-		
-		tienda.registrarVenta(codigoProducto, codigoVendedor, cantidad);
-		System.out.println("Venta registrada");
-		
+
+		try {
+			tienda.registrarVenta(codigoProducto, codigoVendedor, cantidad);
+			System.out.println("Venta registrada");
+		} catch (ProductoNoEncontradoException e) {
+			System.out.println("Error: " + e.getMessage());
+		} catch (VendedorNoEncontradoException e) {
+			System.out.println("Error: " + e.getMessage());
+		} catch (DatoInvalidoException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
 	}
 
 	private static void listarVendedores() {
@@ -99,32 +114,33 @@ public class Main {
 
 	private static void listarProductos() {
 		ArrayList<Producto> productos = tienda.getProductos();
-		
+
 		if (productos.size() == 0) {
 			System.out.println("No hay productos enlistados.");
 			return;
 		}
-		
+
 		for (int i = 0; i < productos.size(); i++) {
 			System.out.println(productos.get(i));
 		}
-		
-		
 	}
 
-	private static void registrarVendedor() {		
+	private static void registrarVendedor() {
 		System.out.println("Codigo: ");
-		int codigo = Integer.parseInt(scanner.nextLine());		
+		int codigo = Integer.parseInt(scanner.nextLine());
 		System.out.println("Nombre: ");
-		String nombre = scanner.nextLine();		
+		String nombre = scanner.nextLine();
 		System.out.println("Sueldo: ");
 		double sueldo = Double.parseDouble(scanner.nextLine());
-		
-		Vendedor vendedor = new Vendedor(codigo,nombre,sueldo);
-		tienda.agregarVendedor(vendedor);
-		System.out.println("Vendedor registrado.");
-		
-		
+
+		Vendedor vendedor = new Vendedor(codigo, nombre, sueldo);
+
+		try {
+			tienda.agregarVendedor(vendedor);
+			System.out.println("Vendedor registrado.");
+		} catch (DatoInvalidoException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
 	}
 
 	private static void registrarProducto() {
@@ -136,12 +152,17 @@ public class Main {
 		Double precio = Double.parseDouble(scanner.nextLine());
 		System.out.println("Categoria: ");
 		String categoria = scanner.nextLine();
-		
+
 		Producto producto = new Producto (codigo,nombre,precio,categoria);
-		tienda.agregarProducto(producto);
-		System.out.println("Producto agregado");
+
+		try {
+			tienda.agregarProducto(producto);
+			System.out.println("Producto agregado");
+		} catch (DatoInvalidoException e){
+			System.out.println("Error: " + e.getMessage());
+		}
 	}
-	
+
 	private static void listarVentas() {
 	    ArrayList<Venta> ventas = tienda.getVentas();
 
@@ -154,10 +175,11 @@ public class Main {
 	        System.out.println(ventas.get(i));
 	    }
 	}
-	
+
+	// menu buscadores
 	public static void buscarProductos() {
 		ArrayList<Producto> resultado = new ArrayList<Producto>();
-		
+
 		int opcion = -1;
         while (opcion != 0) {
 
@@ -200,7 +222,7 @@ public class Main {
                     	Double precioMinimo = Double.parseDouble(scanner.nextLine());
                     	System.out.println("Precio maximo: ");
                     	Double precioMaximo = Double.parseDouble(scanner.nextLine());
-                    	resultado = tienda.buscarPorRangoPrecios(precioMinimo, precioMaximo);    	
+                    	resultado = tienda.buscarPorRangoPrecios(precioMinimo, precioMaximo);
                 }
                     break;
                 case 0:
@@ -209,7 +231,7 @@ public class Main {
                 default:
                     System.out.println("Esa opcion no existe, proba de nuevo.");
             }
-            
+
             if (resultado.size() == 0) {
                 System.out.println("No se encontraron productos.");
             } else {
@@ -218,11 +240,7 @@ public class Main {
                 }
             }
 
-            System.out.println(); // una linea en blanco para separar cada vuelta del menu
+            System.out.println();
         }
-        
-	
-		
 	}
-	
 }
